@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Odyssey Beyond the Space</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="planetes.html">Planètes</a></li>
+      <li><a href="etoiles.html">Étoiles</a></li>
+      <li><a href="exploration.html">Exploration</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    <!-- HEADER -->
+    <h1><i class="fas fa-envelope"></i> <span>Rejoignez la Mission !</span></h1>
+    
+    <p class="intro-text">
+      Envoyez-nous un message pour partager vos découvertes ou rejoindre notre équipage interstellaire. 
+      Votre passion pour l'espace nous inspire à continuer nos explorations.
+    </p>
+
+    <!-- CONTACT FORM -->
+    <div class="contact-container">
+      <h2>Formulaire de Contact</h2>
+      
+      <form>
+        <div class="form-group">
+          <label for="name">Nom :</label>
+          <input type="text" id="name" name="name" required placeholder="Votre nom complet">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email :</label>
+          <input type="email" id="email" name="email" required placeholder="votre.email@exemple.com">
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message :</label>
+          <textarea id="message" name="message" required placeholder="Partagez vos pensées sur l'univers..."></textarea>
+        </div>
+
+        <button type="button" id="submit-btn" class="submit-btn">Envoyer</button>
+      </form>
+    </div>
+
+    <!-- INFORMATION SECTION -->
+    <section class="grid mt-2">
+      <div class="card">
+        <h3><i class="fas fa-star"></i> Pour les Passionnés</h3>
+        <p>Si vous rêvez d'explorer l'espace ou de faire partie d'une aventure scientifique, 
+           cette plateforme est faite pour vous.</p>
+      </div>
+
+      <div class="card">
+        <h3><i class="fas fa-flask"></i> Pour les Scientifiques</h3>
+        <p>Rejoignez notre communauté de chercheurs et d'astronomes pour collaborer 
+           sur des projets d'exploration spatiale.</p>
+      </div>
+
+      <div class="card">
+        <h3><i class="fas fa-graduation-cap"></i> Pour les Étudiants</h3>
+        <p>Découvrez les opportunités d'apprentissage en astrophysique, ingénierie aérospatiale 
+           et sciences planétaires.</p>
+      </div>
+    </section>
+
+    <!-- NAVIGATION -->
+    <div class="text-center mt-2">
+      <a href="exploration.html" class="btn">← Retour</a>
+      <a href="index.html" class="btn">Accueil</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Odyssey Beyond the Space | Voyage dans l'Univers</p>
+    <p>Press '<span class="highlight">M</span>' to toggle ambiance music</p>
+    <p>Developed by <a href="http://leo-portoflio.fr/">Léo BUENO</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

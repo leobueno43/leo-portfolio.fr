@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les Étoiles & Galaxies - Odyssey Beyond the Space</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="planetes.html">Planètes</a></li>
+      <li><a href="etoiles.html">Étoiles</a></li>
+      <li><a href="exploration.html">Exploration</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    <!-- HEADER -->
+    <h1><i class="fas fa-galaxy"></i> <span>Les Étoiles et les Galaxies</span></h1>
+    
+    <p class="intro-text">
+      Les étoiles illuminent notre ciel nocturne, et les galaxies regroupent des milliards d'entre elles. 
+      Ensemble, elles forment la trame lumineuse de l'univers.
+    </p>
+
+    <!-- GALLERY SECTION -->
+    <h2>Galerie Cosmique</h2>
+    
+    <section class="gallery">
+      <!-- Voie Lactée -->
+      <div class="gallery-item">
+        <img src="img/voie-lactee.jpg" alt="Voie Lactée">
+        <div class="gallery-caption">Voie Lactée - Notre Galaxie</div>
+      </div>
+
+      <!-- Nébuleuse d'Orion -->
+      <div class="gallery-item">
+        <img src="img/nebuleuse-orion.jpg" alt="Nébuleuse d'Orion">
+        <div class="gallery-caption">Nébuleuse d'Orion - Berceau d'Étoiles</div>
+      </div>
+
+      <!-- Andromède -->
+      <div class="gallery-item">
+        <img src="img/andromede.jpg" alt="Andromède">
+        <div class="gallery-caption">Andromède - Galaxie Voisine</div>
+      </div>
+
+      <!-- Supernova -->
+      <div class="gallery-item">
+        <img src="img/supernova.jpg" alt="Supernova">
+        <div class="gallery-caption">Supernova - Explosion Cosmique</div>
+      </div>
+    </section>
+
+    <!-- VIDEO SECTION -->
+    <h2>Cycle de Vie des Étoiles</h2>
+    
+    <p class="intro-text" style="margin-bottom: 2rem;">
+      Découvrez le voyage fascinant qu'une étoile parcourt tout au long de son existence, 
+      de sa naissance dans une nébuleuse à sa fin spectaculaire.
+    </p>
+
+    <div class="video-container">
+      <div class="video-wrapper">
+        <video 
+          controls 
+          poster="img/andromede.jpg"
+          preload="metadata"
+          controlsList="nodownload nofullscreen noremoteplayback">
+          <source src="video/video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="video-glow"></div>
+      </div>
+    </div>
+
+    <!-- INFORMATION CARDS -->
+    <h2>Points Clés</h2>
+    
+    <section class="grid">
+      <div class="card">
+        <h3>Formation des Étoiles</h3>
+        <p>Les étoiles naissent dans de grandes nuages de gaz et de poussière appelées nébuleuses. 
+           Sous l'effet de la gravité, ces nuages s'effondrent et forment de nouvelles étoiles.</p>
+      </div>
+
+      <div class="card">
+        <h3>Fusion Nucléaire</h3>
+        <p>Au cœur des étoiles, la fusion nucléaire transforme l'hydrogène en hélium, 
+           produisant l'énergie massive qui les fait briller pendant des milliards d'années.</p>
+      </div>
+
+      <div class="card">
+        <h3>Fin de Vie Spectaculaire</h3>
+        <p>Certaines étoiles explosent en supernovas, créant des spectacles cosmiques magnifiques 
+           et dispersant les éléments qui formeront de nouvelles étoiles et planètes.</p>
+      </div>
+    </section>
+
+    <!-- NAVIGATION -->
+    <div class="text-center mt-2">
+      <a href="planetes.html" class="btn">← Planètes</a>
+      <a href="exploration.html" class="btn">Exploration →</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Odyssey Beyond the Space | Voyage dans l'Univers</p>
+    <p>Press '<span class="highlight">M</span>' to toggle ambiance music</p>
+    <p>Developed by <a href="http://leo-portoflio.fr/">Léo BUENO</a></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

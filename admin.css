@@ -1,0 +1,343 @@
+/* ============================================
+   ADMIN PANEL - STYLE CALÉ SUR styles.css
+   ============================================ */
+
+/* Layout général du panel / login */
+.admin-body {
+    background: var(--bg-light);
+    min-height: 100vh;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--text-dark);
+    padding: 40px 20px;
+}
+
+.admin-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Titres du panel */
+.admin-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.admin-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 30px;
+}
+
+/* Cards réutilisables (login + panel) */
+.card {
+    background: var(--bg-white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+/* Variante centrée (pour la page login) */
+.card-centered {
+    max-width: 420px;
+    margin: 60px auto;
+}
+
+/* Titres dans les cards */
+.card h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+}
+
+/* Messages d'erreur / succès */
+.alert-error {
+    color: #e74c3c;
+    margin-bottom: 10px;
+}
+
+.alert-success {
+    color: #27ae60;
+    margin-bottom: 10px;
+}
+
+/* Champs de formulaire */
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-size: 0.95rem;
+    outline: none;
+    background: #fdfdfd;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+/* Boutons : on se base sur .btn-primary existant dans styles.css */
+.btn-full {
+    display: inline-block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px 16px;
+    text-align: center;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Variation "lien" léger */
+.link-muted {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.link-muted:hover {
+    color: var(--primary-color);
+}
+
+/* Lien retour portfolio */
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+}
+
+/* Grille pour le panel (upload / création de dossier / liste fichiers) */
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* Titres de section dans le panel */
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* Petit texte explicatif sous les formulaires */
+.helper-text {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-top: 6px;
+}
+
+/* -----------------------------
+   STYLE GESTIONNAIRE DE FICHIERS
+   (inspiré écran dashboard)
+   ----------------------------- */
+
+.file-manager-card {
+    padding: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid #e1e4ea;
+}
+
+/* Header de la carte */
+
+.file-manager-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: #f5f6fa;
+    border-bottom: 1px solid #e1e4ea;
+}
+
+.file-manager-header .section-title {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.file-manager-subtitle {
+    margin: 2px 0 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.file-manager-subtitle code {
+    background: transparent;
+    padding: 0;
+    font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+/* Petit badge à droite */
+
+.file-manager-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fm-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    background: #e5f7eb;
+    color: #15803d;
+}
+
+/* Contenu vide du gestionnaire */
+
+.file-manager-empty {
+    padding: 14px 18px 18px;
+}
+
+/* En-tête de la liste */
+
+.file-list-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 140px;
+    padding: 8px 18px;
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b7280;
+}
+
+.file-list-header .col-name {
+    text-align: left;
+}
+
+.file-list-header .col-actions {
+    text-align: right;
+}
+
+/* Liste des fichiers */
+
+.file-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 480px;          /* scroll si beaucoup de fichiers */
+    overflow-y: auto;
+}
+
+.file-list li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 140px;
+    align-items: center;
+    padding: 9px 18px;
+    font-size: 13px;
+    border-bottom: 1px solid #f1f3f6;
+    background: #ffffff;
+    transition: background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.file-list li:nth-child(even) {
+    background: #fbfcff;
+}
+
+.file-list li:hover {
+    background: #edf2ff;
+    box-shadow: inset 3px 0 0 #4f46e5;
+}
+
+/* Nom du fichier */
+
+.file-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #111827;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Icône de fichier façon dashboard */
+.file-name::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #d1d5db;
+    background: linear-gradient(135deg, #ffffff 0%, #f3f4f6 100%);
+    box-shadow: 0 1px 1px rgba(15, 23, 42, 0.05);
+}
+
+/* Actions */
+
+.file-actions {
+    text-align: right;
+}
+
+/* Boutons */
+
+.btn-sm {
+    padding: 4px 10px;
+    font-size: 12px;
+}
+
+/* Bouton danger (supprimer) */
+
+.btn-danger {
+    background: #fef2f2;
+    color: #b91c1c;
+    border-radius: 999px;
+    padding: 6px 12px;
+    border: 1px solid #dc2626;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: background 0.15s ease, color 0.15s ease,
+                box-shadow 0.15s ease, transform 0.05s ease;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.35);
+    transform: translateY(-1px);
+}
+
+/* Bouton secondaire */
+
+.btn-secondary {
+    background: #bdc3c7;
+    color: #2c3e50;
+    border-radius: 999px;
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: filter 0.15s ease, transform 0.05s ease;
+}
+
+.btn-secondary:hover {
+    filter: brightness(1.03);
+    transform: translateY(-1px);
+}
