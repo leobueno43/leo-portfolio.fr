@@ -90,10 +90,48 @@ if (isset($_GET['error'])) {
             $messageType = 'error';
             break;
         case 'file_too_large':
-            $message = 'Fichier trop volumineux.';
+            $message = 'Fichier trop volumineux. Limite : 100 MB par fichier.';
+            $messageType = 'error';
+            break;
+        case 'delete_failed':
+            $message = 'Impossible de supprimer certains fichiers.';
+            $messageType = 'error';
+            break;
+        case 'exists':
+            $message = 'Un fichier ou dossier avec ce nom existe déjà.';
             $messageType = 'error';
             break;
     }
+}
+if (isset($_GET['warning'])) {
+    switch ($_GET['warning']) {
+        case 'space_low':
+            $message = 'Attention : Espace disque faible (moins de 10% disponible).';
+            $messageType = 'warning';
+            break;
+        case 'large_file':
+            $message = 'Fichier volumineux détecté. L\'upload peut prendre du temps.';
+            $messageType = 'warning';
+            break;
+    }
+}
+if (isset($_GET['info'])) {
+    switch ($_GET['info']) {
+        case 'first_visit':
+            $message = 'Bienvenue sur votre cloud personnel ! Commencez par uploader vos fichiers.';
+            $messageType = 'info';
+            break;
+        case 'backup_reminder':
+            $message = 'N\'oubliez pas de sauvegarder régulièrement vos fichiers importants.';
+            $messageType = 'info';
+            break;
+    }
+}
+
+// Vérification espace disque faible (avertissement automatique)
+if ($freeSpace < ($totalSpace * 0.1) && empty($message)) {
+    $message = 'Attention : Espace disque faible (' . formatSize($freeSpace) . ' restants).';
+    $messageType = 'warning';
 }
 
 // Récupération des fichiers et dossiers
@@ -681,9 +719,9 @@ foreach ($items as $item) {
     <?php if ($message): ?>
     <div class="message-banner <?= $messageType ?>">
         <?php if ($messageType === 'success'): ?>
-            <img src="/images/icon/check-all.png" alt="" style="width: 20px; height: 20px;">
+            <img src="/images/icon/success.png" alt="" style="width: 20px; height: 20px;">
         <?php else: ?>
-            <img src="/images/icon/alert.png" alt="" style="width: 20px; height: 20px;">
+            <img src="/images/icon/error.png" alt="" style="width: 20px; height: 20px;">
         <?php endif; ?>
         <?= $message ?>
     </div>
