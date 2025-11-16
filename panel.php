@@ -687,7 +687,9 @@ foreach ($items as $item) {
     <!-- Statistiques -->
     <div class="stats-grid">
         <div class="stat-card">
-            <div class="stat-icon blue">💾</div>
+            <div class="stat-icon blue">
+                <img src="/images/icon/storage.png" alt="" style="width: 32px; height: 32px;">
+            </div>
             <div class="stat-info">
                 <h3><?= formatSize($usedSpace) ?></h3>
                 <p>Espace utilisé</p>
@@ -695,7 +697,9 @@ foreach ($items as $item) {
         </div>
         
         <div class="stat-card">
-            <div class="stat-icon green">📁</div>
+            <div class="stat-icon green">
+                <img src="/images/icon/folder.png" alt="" style="width: 32px; height: 32px;">
+            </div>
             <div class="stat-info">
                 <h3><?= $totalFolders ?></h3>
                 <p>Dossiers</p>
@@ -703,7 +707,9 @@ foreach ($items as $item) {
         </div>
         
         <div class="stat-card">
-            <div class="stat-icon purple">📄</div>
+            <div class="stat-icon purple">
+                <img src="/images/icon/file.png" alt="" style="width: 32px; height: 32px;">
+            </div>
             <div class="stat-info">
                 <h3><?= $totalFiles ?></h3>
                 <p>Fichiers</p>
@@ -711,7 +717,9 @@ foreach ($items as $item) {
         </div>
         
         <div class="stat-card">
-            <div class="stat-icon orange">✨</div>
+            <div class="stat-icon orange">
+                <img src="/images/icon/available.png" alt="" style="width: 32px; height: 32px;">
+            </div>
             <div class="stat-info">
                 <h3><?= formatSize($freeSpace) ?></h3>
                 <p>Espace disponible</p>
@@ -721,7 +729,8 @@ foreach ($items as $item) {
 
     <!-- Info de sélection -->
     <div id="selectionInfo" class="selection-info">
-        ✓ <span id="selectionCount">0</span> élément(s) sélectionné(s)
+        <img src="/images/icon/check-all.png" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;">
+        <span id="selectionCount">0</span> élément(s) sélectionné(s)
     </div>
 
     <!-- Gestionnaire de fichiers -->
@@ -780,11 +789,14 @@ foreach ($items as $item) {
         <!-- Contenu -->
         <?php if (empty($items)): ?>
             <div class="empty-state">
-                <div class="empty-state-icon">☁️</div>
+                <div class="empty-state-icon">
+                    <img src="/images/icon/cloud.png" alt="" style="width: 64px; height: 64px; opacity: 0.5;">
+                </div>
                 <h3>Votre cloud est vide</h3>
                 <p>Commencez par uploader vos premiers fichiers</p>
                 <a href="#" class="quick-upload" onclick="showUploadModal(); return false;">
-                    📤 Upload un fichier
+                    <img src="/images/icon/upload.png" alt="" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 6px;">
+                    Upload un fichier
                 </a>
             </div>
         <?php else: ?>
@@ -835,7 +847,7 @@ foreach ($items as $item) {
                             </span>
                         <?php endif; ?>
                     </td>
-                    <td><?= $item['is_dir'] ? '-' : formatSize($item['size']) ?></td>
+                    <td><?= $item['is_dir'] ? '<img src="/images/icon/folder.png" style="width: 14px; height: 14px; opacity: 0.5;">' : formatSize($item['size']) ?></td>
                     <td><?= formatDate($item['modified']) ?></td>
                     <td style="color: #6c757d; font-size: 12px;">
                         <?= $item['is_dir'] ? 'Dossier' : htmlspecialchars($item['type']) ?>
