@@ -8,16 +8,44 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 }
 
 $CLOUD_STORAGE_DIR = __DIR__ . '/storage/';
+
+// Créer le dossier storage s'il n'existe pas
+if (!is_dir($CLOUD_STORAGE_DIR)) {
+    mkdir($CLOUD_STORAGE_DIR, 0755, true);
+    file_put_contents($CLOUD_STORAGE_DIR . '.htaccess', "Deny from all\n");
+}
+
 $currentPath = trim($_POST['current_path'] ?? $_GET['current_path'] ?? '', '/');
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 
 // Fonction pour sécuriser les chemins
 function securePath($baseDir, $path) {
-    $fullPath = realpath($baseDir . $path);
-    if ($fullPath === false || strpos($fullPath, $baseDir) !== 0) {
+    // Si le chemin est vide, retourner le dossier de base
+    if (empty($path)) {
+        return $baseDir;
+    }
+    
+    $fullPath = $baseDir . $path;
+    $realPath = realpath($fullPath);
+    
+    // Si realpath retourne false, le fichier n'existe pas encore (création)
+    if ($realPath === false) {
+        // Vérifier que le chemin parent existe et est valide
+        $parentPath = dirname($fullPath);
+        $realParentPath = realpath($parentPath);
+        
+        if ($realParentPath !== false && strpos($realParentPath, $baseDir) === 0) {
+            return $fullPath;
+        }
         return false;
     }
-    return $fullPath;
+    
+    // Vérifier que le chemin est dans le dossier de base
+    if (strpos($realPath, $baseDir) !== 0) {
+        return false;
+    }
+    
+    return $realPath;
 }
 
 // Fonction pour copier récursivement
@@ -28,7 +56,7 @@ function copyRecursive($source, $dest) {
         }
         $files = scandir($source);
         foreach ($files as $file) {
-            if ($file !== '.' && $file !== '..') {
+            if ($file !== '.' && $file !== '..' && $file !== '.htaccess') {
                 copyRecursive($source . '/' . $file, $dest . '/' . $file);
             }
         }
@@ -39,14 +67,19 @@ function copyRecursive($source, $dest) {
 
 // Fonction pour supprimer récursivement
 function deleteRecursive($path) {
+    if (!file_exists($path)) {
+        return true;
+    }
+    
     if (is_dir($path)) {
-        $files = array_diff(scandir($path), ['.', '..']);
+        $files = array_diff(scandir($path), ['.', '..', '.htaccess']);
         foreach ($files as $file) {
-            deleteRecursive($path . '/' . $file);
+            $filePath = $path . '/' . $file;
+            deleteRecursive($filePath);
         }
-        return rmdir($path);
+        return @rmdir($path);
     } else {
-        return unlink($path);
+        return @unlink($path);
     }
 }
 
@@ -79,7 +112,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             header('Content-Type: application/json');
             
             if (strpos($mimeType, 'image/') === 0) {
-                // Pour les images, on crée un script temporaire de lecture
                 echo json_encode([
                     'type' => 'image',
                     'mime' => $mimeType,
@@ -132,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         foreach ($files as $file) {
             $sourceFullPath = securePath($CLOUD_STORAGE_DIR, $file);
-            if ($sourceFullPath) {
+            if ($sourceFullPath && file_exists($sourceFullPath)) {
                 $fileName = basename($sourceFullPath);
                 $destFilePath = $destFullPath . '/' . $fileName;
                 
@@ -174,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         foreach ($files as $file) {
             $sourceFullPath = securePath($CLOUD_STORAGE_DIR, $file);
-            if ($sourceFullPath) {
+            if ($sourceFullPath && file_exists($sourceFullPath)) {
                 $fileName = basename($sourceFullPath);
                 $destFilePath = $destFullPath . '/' . $fileName;
                 
@@ -209,7 +241,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         $sourceFullPath = securePath($CLOUD_STORAGE_DIR, $file);
-        if (!$sourceFullPath) {
+        if (!$sourceFullPath || !file_exists($sourceFullPath)) {
             header('Location: panel.php?path=' . urlencode($currentPath) . '&error=invalid_path');
             exit;
         }
@@ -238,19 +270,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
         
+        $deletedCount = 0;
         foreach ($files as $file) {
             $fullPath = securePath($CLOUD_STORAGE_DIR, $file);
-            if ($fullPath) {
-                deleteRecursive($fullPath);
+            if ($fullPath && file_exists($fullPath)) {
+                if (deleteRecursive($fullPath)) {
+                    $deletedCount++;
+                }
             }
         }
         
-        header('Location: panel.php?path=' . urlencode($currentPath) . '&success=deleted');
+        if ($deletedCount > 0) {
+            header('Location: panel.php?path=' . urlencode($currentPath) . '&success=deleted');
+        } else {
+            header('Location: panel.php?path=' . urlencode($currentPath) . '&error=delete_failed');
+        }
         exit;
     }
 }
 
-// Redirection par défaut
-header('Location: panel.php');
+// Redirection par défaut si aucune action reconnue
+header('Location: panel.php?path=' . urlencode($currentPath));
 exit;
 ?>
