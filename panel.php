@@ -50,27 +50,27 @@ $messageType = '';
 if (isset($_GET['success'])) {
     switch ($_GET['success']) {
         case 'upload':
-            $message = '✅ Fichier uploadé avec succès !';
+            $message = 'Fichier uploadé avec succès !';
             $messageType = 'success';
             break;
         case 'deleted':
-            $message = '✅ Élément supprimé avec succès !';
+            $message = 'Élément supprimé avec succès !';
             $messageType = 'success';
             break;
         case 'renamed':
-            $message = '✅ Fichier renommé avec succès !';
+            $message = 'Fichier renommé avec succès !';
             $messageType = 'success';
             break;
         case 'copied':
-            $message = '✅ Fichier(s) copié(s) avec succès !';
+            $message = 'Fichier(s) copié(s) avec succès !';
             $messageType = 'success';
             break;
         case 'moved':
-            $message = '✅ Fichier(s) déplacé(s) avec succès !';
+            $message = 'Fichier(s) déplacé(s) avec succès !';
             $messageType = 'success';
             break;
         case 'folder_created':
-            $message = '✅ Dossier créé avec succès !';
+            $message = 'Dossier créé avec succès !';
             $messageType = 'success';
             break;
     }
@@ -78,19 +78,19 @@ if (isset($_GET['success'])) {
 if (isset($_GET['error'])) {
     switch ($_GET['error']) {
         case 'upload':
-            $message = '❌ Erreur lors de l\'upload du fichier.';
+            $message = 'Erreur lors de l\'upload du fichier.';
             $messageType = 'error';
             break;
         case 'invalid_path':
-            $message = '❌ Chemin invalide.';
+            $message = 'Chemin invalide.';
             $messageType = 'error';
             break;
         case 'no_selection':
-            $message = '❌ Aucun fichier sélectionné.';
+            $message = 'Aucun fichier sélectionné.';
             $messageType = 'error';
             break;
         case 'file_too_large':
-            $message = '❌ Fichier trop volumineux.';
+            $message = 'Fichier trop volumineux.';
             $messageType = 'error';
             break;
     }
@@ -680,6 +680,11 @@ foreach ($items as $item) {
     <!-- Message de succès/erreur -->
     <?php if ($message): ?>
     <div class="message-banner <?= $messageType ?>">
+        <?php if ($messageType === 'success'): ?>
+            <img src="/images/icon/check-all.png" alt="" style="width: 20px; height: 20px;">
+        <?php else: ?>
+            <img src="/images/icon/alert.png" alt="" style="width: 20px; height: 20px;">
+        <?php endif; ?>
         <?= $message ?>
     </div>
     <?php endif; ?>
