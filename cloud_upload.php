@@ -77,3 +77,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
     header('Location: panel.php');
     exit;
 }
+?>
