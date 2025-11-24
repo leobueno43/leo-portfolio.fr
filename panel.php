@@ -73,6 +73,14 @@ if (isset($_GET['success'])) {
             $message = 'Dossier créé avec succès !';
             $messageType = 'success';
             break;
+        case 'compressed':
+            $message = 'Archive ZIP créée avec succès !';
+            $messageType = 'success';
+            break;
+        case 'extracted':
+            $message = 'Archive extraite avec succès !';
+            $messageType = 'success';
+            break;
     }
 }
 if (isset($_GET['error'])) {
@@ -575,10 +583,22 @@ foreach ($items as $item) {
         
         .message-banner.success {
             border-left: 4px solid #27ae60;
+            background: #d4edda;
         }
         
         .message-banner.error {
             border-left: 4px solid #e74c3c;
+            background: #f8d7da;
+        }
+        
+        .message-banner.warning {
+            border-left: 4px solid #f39c12;
+            background: #fff3cd;
+        }
+        
+        .message-banner.info {
+            border-left: 4px solid #3498db;
+            background: #d1ecf1;
         }
         
         .selection-info {
@@ -715,13 +735,17 @@ foreach ($items as $item) {
         </div>
     </div>
 
-    <!-- Message de succès/erreur -->
+    <!-- Message de succès/erreur/warning/info -->
     <?php if ($message): ?>
     <div class="message-banner <?= $messageType ?>">
         <?php if ($messageType === 'success'): ?>
             <img src="/images/icon/success.png" alt="" style="width: 20px; height: 20px;">
-        <?php else: ?>
+        <?php elseif ($messageType === 'error'): ?>
             <img src="/images/icon/error.png" alt="" style="width: 20px; height: 20px;">
+        <?php elseif ($messageType === 'warning'): ?>
+            <img src="/images/icon/warning.png" alt="" style="width: 20px; height: 20px;">
+        <?php else: ?>
+            <img src="/images/icon/info.png" alt="" style="width: 20px; height: 20px;">
         <?php endif; ?>
         <?= $message ?>
     </div>
@@ -729,13 +753,65 @@ foreach ($items as $item) {
 
     <!-- Statistiques -->
     <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-icon blue">
-                <img src="/images/icon/storage.png" alt="" style="width: 32px; height: 32px;">
-            </div>
-            <div class="stat-info">
-                <h3><?= formatSize($usedSpace) ?></h3>
-                <p>Espace utilisé</p>
+        <!-- Graphique circulaire espace disque -->
+        <div class="stat-card" style="grid-column: span 2;">
+            <div style="display: flex; align-items: center; gap: 24px; width: 100%;">
+                <div class="storage-chart-container" style="flex-shrink: 0;">
+                    <svg class="storage-chart" viewBox="0 0 200 200" style="width: 120px; height: 120px;">
+                        <!-- Cercle de fond -->
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="#e5e7eb" stroke-width="20"/>
+                        <!-- Cercle de progression -->
+                        <circle cx="100" cy="100" r="80" fill="none" 
+                                stroke="url(#gradient)" stroke-width="20"
+                                stroke-dasharray="502.65" 
+                                stroke-dashoffset="<?= 502.65 - (502.65 * ($usedSpacePercent / 100)) ?>"
+                                transform="rotate(-90 100 100)"
+                                stroke-linecap="round"/>
+                        
+                        <!-- Gradient -->
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#3498db;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#9b59b6;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Texte au centre -->
+                        <text x="100" y="95" text-anchor="middle" font-size="24" font-weight="700" fill="#2c3e50">
+                            <?= round($usedSpacePercent, 1) ?>%
+                        </text>
+                        <text x="100" y="115" text-anchor="middle" font-size="12" fill="#7f8c8d">
+                            utilisé
+                        </text>
+                    </svg>
+                </div>
+                
+                <div style="flex: 1;">
+                    <h3 style="margin: 0 0 12px 0; font-size: 18px; color: #2c3e50;">
+                        <img src="/images/icon/storage.png" alt="" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 6px;">
+                        Espace de stockage
+                    </h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                        <div>
+                            <p style="margin: 0; font-size: 12px; color: #7f8c8d;">Utilisé</p>
+                            <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: 700; color: #3498db;">
+                                <?= formatSize($usedSpace) ?>
+                            </p>
+                        </div>
+                        <div>
+                            <p style="margin: 0; font-size: 12px; color: #7f8c8d;">Disponible</p>
+                            <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: 700; color: #27ae60;">
+                                <?= formatSize($freeSpace) ?>
+                            </p>
+                        </div>
+                        <div>
+                            <p style="margin: 0; font-size: 12px; color: #7f8c8d;">Total</p>
+                            <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: 700; color: #2c3e50;">
+                                <?= formatSize($totalSpace) ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -756,16 +832,6 @@ foreach ($items as $item) {
             <div class="stat-info">
                 <h3><?= $totalFiles ?></h3>
                 <p>Fichiers</p>
-            </div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon orange">
-                <img src="/images/icon/available.png" alt="" style="width: 32px; height: 32px;">
-            </div>
-            <div class="stat-info">
-                <h3><?= formatSize($freeSpace) ?></h3>
-                <p>Espace disponible</p>
             </div>
         </div>
     </div>
@@ -789,6 +855,10 @@ foreach ($items as $item) {
                 <img src="/images/icon/plus.png" alt="" style="width: 14px; height: 14px;">
                 Nouveau dossier
             </button>
+            <button class="fm-btn" id="btnSearch" onclick="showSearchModal()">
+                <img src="/images/icon/search.png" alt="" style="width: 14px; height: 14px;">
+                Rechercher
+            </button>
             <button class="fm-btn" id="btnCopy" onclick="showCopyModal()" disabled>
                 <img src="/images/icon/copy.png" alt="" style="width: 14px; height: 14px;">
                 Copier
@@ -801,9 +871,25 @@ foreach ($items as $item) {
                 <img src="/images/icon/download.png" alt="" style="width: 14px; height: 14px;">
                 Télécharger
             </button>
+            <button class="fm-btn" id="btnCompress" onclick="showCompressModal()" disabled>
+                <img src="/images/icon/compress.png" alt="" style="width: 14px; height: 14px;">
+                Compresser
+            </button>
+            <button class="fm-btn" id="btnExtract" onclick="showExtractModal()" disabled>
+                <img src="/images/icon/extract.png" alt="" style="width: 14px; height: 14px;">
+                Extraire
+            </button>
             <button class="fm-btn" id="btnRename" onclick="showRenameModal()" disabled>
                 <img src="/images/icon/rename.png" alt="" style="width: 14px; height: 14px;">
                 Renommer
+            </button>
+            <button class="fm-btn" id="btnFavorite" onclick="toggleFavorite()" disabled>
+                <img src="/images/icon/favorite.png" alt="" style="width: 14px; height: 14px;">
+                Favoris
+            </button>
+            <button class="fm-btn" id="btnShare" onclick="showShareModal()" disabled>
+                <img src="/images/icon/share.png" alt="" style="width: 14px; height: 14px;">
+                Partager
             </button>
             <button class="fm-btn" id="btnView" onclick="viewFile()" disabled>
                 <img src="/images/icon/view.png" alt="" style="width: 14px; height: 14px;">
@@ -1038,6 +1124,109 @@ foreach ($items as $item) {
     </div>
 </div>
 
+<!-- Modal Rechercher -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <img src="/images/icon/search.png" alt="" style="width: 20px; height: 20px;">
+            Rechercher des fichiers
+        </div>
+        <div class="form-group">
+            <label for="searchInput">Recherche</label>
+            <input type="text" id="searchInput" class="form-control" placeholder="Nom du fichier..." onkeyup="performSearch()">
+            <p class="helper-text">Recherche dans tous vos fichiers et dossiers</p>
+        </div>
+        <div id="searchResults" style="max-height: 300px; overflow-y: auto; margin-top: 16px;">
+            <p style="text-align: center; color: #7f8c8d;">Saisissez un nom pour rechercher...</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="fm-btn" onclick="closeModal('searchModal')">Fermer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Compresser -->
+<div id="compressModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <img src="/images/icon/compress.png" alt="" style="width: 20px; height: 20px;">
+            Créer une archive ZIP
+        </div>
+        <form method="post" action="cloud_actions.php">
+            <input type="hidden" name="action" value="compress">
+            <input type="hidden" name="current_path" value="<?= htmlspecialchars($currentPath) ?>">
+            <input type="hidden" name="files" id="compressFiles">
+            
+            <div class="form-group">
+                <label for="archive_name">Nom de l'archive</label>
+                <input type="text" name="archive_name" id="archiveName" class="form-control" 
+                       placeholder="mon-archive.zip" required>
+                <p class="helper-text">
+                    L'archive sera créée dans le dossier actuel
+                </p>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="fm-btn" onclick="closeModal('compressModal')">Annuler</button>
+                <button type="submit" class="fm-btn fm-btn-primary">Créer l'archive</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Extraire -->
+<div id="extractModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <img src="/images/icon/extract.png" alt="" style="width: 20px; height: 20px;">
+            Extraire l'archive
+        </div>
+        <form method="post" action="cloud_actions.php">
+            <input type="hidden" name="action" value="extract">
+            <input type="hidden" name="current_path" value="<?= htmlspecialchars($currentPath) ?>">
+            <input type="hidden" name="file" id="extractFile">
+            
+            <div class="form-group">
+                <label>Options d'extraction</label>
+                <p class="helper-text" id="extractInfo">
+                    L'archive sera extraite dans un nouveau dossier
+                </p>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="fm-btn" onclick="closeModal('extractModal')">Annuler</button>
+                <button type="submit" class="fm-btn fm-btn-primary">Extraire</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Partager -->
+<div id="shareModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <img src="/images/icon/share.png" alt="" style="width: 20px; height: 20px;">
+            Partager le fichier
+        </div>
+        <div class="form-group">
+            <label>Lien de partage</label>
+            <div style="display: flex; gap: 8px;">
+                <input type="text" id="shareLink" class="form-control" readonly>
+                <button type="button" class="fm-btn fm-btn-primary" onclick="copyShareLink()">
+                    <img src="/images/icon/copy.png" alt="" style="width: 14px; height: 14px;">
+                    Copier
+                </button>
+            </div>
+            <p class="helper-text">
+                Ce lien permet de télécharger le fichier (valide 24h)
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="fm-btn" onclick="closeModal('shareModal')">Fermer</button>
+        </div>
+    </div>
+</div>
+
 <script>
 let selectedFiles = [];
 
@@ -1066,6 +1255,7 @@ function updateSelection() {
     const hasSelection = count > 0;
     const singleSelection = count === 1;
     const singleFileSelection = singleSelection && !selectedFiles[0].isDir;
+    const hasZipFile = singleFileSelection && selectedFiles[0].name.match(/\.(zip|rar|7z|tar|gz)$/i);
     
     document.getElementById('btnCopy').disabled = !hasSelection;
     document.getElementById('btnMove').disabled = !hasSelection;
@@ -1073,6 +1263,10 @@ function updateSelection() {
     document.getElementById('btnDelete').disabled = !hasSelection;
     document.getElementById('btnRename').disabled = !singleSelection;
     document.getElementById('btnView').disabled = !singleFileSelection;
+    document.getElementById('btnCompress').disabled = !hasSelection;
+    document.getElementById('btnExtract').disabled = !hasZipFile;
+    document.getElementById('btnFavorite').disabled = !hasSelection;
+    document.getElementById('btnShare').disabled = !singleFileSelection;
 }
 
 function selectAll() {
@@ -1227,6 +1421,116 @@ function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+}
+
+// Nouvelle fonctionnalité : Recherche
+function showSearchModal() {
+    document.getElementById('searchModal').classList.add('active');
+    document.getElementById('searchInput').focus();
+}
+
+let searchTimeout;
+function performSearch() {
+    clearTimeout(searchTimeout);
+    const query = document.getElementById('searchInput').value.trim().toLowerCase();
+    
+    if (query.length < 2) {
+        document.getElementById('searchResults').innerHTML = 
+            '<p style="text-align: center; color: #7f8c8d;">Saisissez au moins 2 caractères...</p>';
+        return;
+    }
+    
+    searchTimeout = setTimeout(() => {
+        const allRows = document.querySelectorAll('.file-row');
+        const results = [];
+        
+        allRows.forEach(row => {
+            const name = row.dataset.name.toLowerCase();
+            if (name.includes(query)) {
+                results.push({
+                    name: row.dataset.name,
+                    path: row.dataset.path,
+                    isDir: row.dataset.isDir === '1'
+                });
+            }
+        });
+        
+        if (results.length === 0) {
+            document.getElementById('searchResults').innerHTML = 
+                '<p style="text-align: center; color: #7f8c8d;">Aucun résultat trouvé</p>';
+        } else {
+            let html = '<div style="border: 1px solid #dee2e6; border-radius: 8px; overflow: hidden;">';
+            results.forEach(result => {
+                const icon = result.isDir ? 'folder' : 'file';
+                html += `
+                    <div style="padding: 12px; border-bottom: 1px solid #f1f3f5; cursor: pointer; transition: background 0.2s;"
+                         onmouseover="this.style.background='#f8f9fa'" 
+                         onmouseout="this.style.background='white'"
+                         onclick="navigateToFile('${result.path}', ${result.isDir})">
+                        <img src="/images/icon/${icon}.png" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 8px;">
+                        <strong>${escapeHtml(result.name)}</strong>
+                        <br>
+                        <small style="color: #7f8c8d; margin-left: 24px;">${escapeHtml(result.path)}</small>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            document.getElementById('searchResults').innerHTML = html;
+        }
+    }, 300);
+}
+
+function navigateToFile(path, isDir) {
+    if (isDir) {
+        window.location.href = 'panel.php?path=' + encodeURIComponent(path);
+    } else {
+        const dirPath = path.substring(0, path.lastIndexOf('/'));
+        window.location.href = 'panel.php?path=' + encodeURIComponent(dirPath);
+    }
+}
+
+// Compresser des fichiers
+function showCompressModal() {
+    if (selectedFiles.length === 0) return;
+    const defaultName = selectedFiles.length === 1 ? selectedFiles[0].name : 'archive';
+    document.getElementById('archiveName').value = defaultName + '.zip';
+    document.getElementById('compressFiles').value = JSON.stringify(selectedFiles.map(f => f.path));
+    document.getElementById('compressModal').classList.add('active');
+}
+
+// Extraire une archive
+function showExtractModal() {
+    if (selectedFiles.length !== 1) return;
+    const file = selectedFiles[0];
+    document.getElementById('extractFile').value = file.path;
+    document.getElementById('extractInfo').textContent = `L'archive "${file.name}" sera extraite dans un nouveau dossier`;
+    document.getElementById('extractModal').classList.add('active');
+}
+
+// Ajouter aux favoris
+function toggleFavorite() {
+    if (selectedFiles.length === 0) return;
+    
+    // Pour l'instant, simple alerte (à implémenter avec stockage)
+    alert('Fonctionnalité "Favoris" : ' + selectedFiles.length + ' fichier(s) ajouté(s) aux favoris !\n\n(Cette fonction nécessite une base de données pour être complètement fonctionnelle)');
+}
+
+// Partager un fichier
+function showShareModal() {
+    if (selectedFiles.length !== 1 || selectedFiles[0].isDir) return;
+    const file = selectedFiles[0];
+    
+    // Générer un lien de partage temporaire
+    const shareUrl = window.location.origin + '/cloud_download.php?file=' + encodeURIComponent(file.path) + '&share=' + btoa(file.path);
+    document.getElementById('shareLink').value = shareUrl;
+    document.getElementById('shareModal').classList.add('active');
+}
+
+function copyShareLink() {
+    const linkInput = document.getElementById('shareLink');
+    linkInput.select();
+    document.execCommand('copy');
+    alert('Lien copié dans le presse-papiers !');
 }
 
 updateSelection();
