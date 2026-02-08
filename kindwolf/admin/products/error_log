@@ -1,0 +1,25 @@
+[14-Jan-2026 15:02:44 Europe/Paris] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`zelu6269_panel_kindwolf`.`order_items`, CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)) in /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php:31
+Stack trace:
+#0 /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php(31): PDOStatement->execute()
+#1 {main}
+  thrown in /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php on line 31
+[14-Jan-2026 15:02:54 Europe/Paris] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`zelu6269_panel_kindwolf`.`order_items`, CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)) in /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php:31
+Stack trace:
+#0 /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php(31): PDOStatement->execute()
+#1 {main}
+  thrown in /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php on line 31
+[14-Jan-2026 15:03:00 Europe/Paris] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`zelu6269_panel_kindwolf`.`order_items`, CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)) in /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php:31
+Stack trace:
+#0 /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php(31): PDOStatement->execute()
+#1 {main}
+  thrown in /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php on line 31
+[14-Jan-2026 15:09:43 Europe/Paris] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`zelu6269_panel_kindwolf`.`order_items`, CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)) in /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php:31
+Stack trace:
+#0 /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php(31): PDOStatement->execute()
+#1 {main}
+  thrown in /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php on line 31
+[14-Jan-2026 15:12:10 Europe/Paris] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`zelu6269_panel_kindwolf`.`order_items`, CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)) in /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php:31
+Stack trace:
+#0 /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php(31): PDOStatement->execute()
+#1 {main}
+  thrown in /home/zelu6269/leo-portfolio.fr/kindwolf/admin/products/delete.php on line 31

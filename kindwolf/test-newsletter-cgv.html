@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Newsletter & CGV - KIND WOLF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            background: #f5f5f5;
+        }
+        .test-card {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2F5D50;
+        }
+        h2 {
+            color: #6B4F3F;
+            margin-top: 0;
+        }
+        .test-list {
+            list-style: none;
+            padding: 0;
+        }
+        .test-list li {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            background: #f9fafb;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #2F5D50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .btn:hover {
+            background: #1e3a2e;
+        }
+        .status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+        }
+        .status.new {
+            background: #22c55e;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Newsletter & CGV - KIND WOLF</h1>
+    
+    <div class="test-card">
+        <h2>📧 Système Newsletter - Envoi d'emails</h2>
+        <ul class="test-list">
+            <li>
+                <span>Interface d'envoi newsletter (Admin)</span>
+                <a href="/kindwolf/admin/newsletter/send.php" class="btn">Tester</a>
+            </li>
+            <li>
+                <span>Liste des abonnés</span>
+                <a href="/kindwolf/admin/newsletter/list.php" class="btn">Voir</a>
+            </li>
+            <li>
+                <span>Formulaire d'inscription (Footer)</span>
+                <a href="/kindwolf/index.php#newsletter" class="btn">Voir</a>
+            </li>
+            <li>
+                <span>Page de désinscription</span>
+                <a href="/kindwolf/pages/unsubscribe.php?token=test" class="btn">Tester</a>
+            </li>
+        </ul>
+        
+        <div style="margin-top: 1.5rem; padding: 1rem; background: #FEF3C7; border-radius: 4px;">
+            <strong>⚠️ Configuration requise :</strong>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">
+                Pour envoyer de vrais emails, configurez les paramètres SMTP dans 
+                <a href="/kindwolf/admin/settings/site.php">Paramètres du site</a>
+            </p>
+        </div>
+    </div>
+    
+    <div class="test-card">
+        <h2>📋 Pages légales & Checkout</h2>
+        <ul class="test-list">
+            <li>
+                <span>Conditions Générales de Vente (CGV)</span>
+                <a href="/kindwolf/pages/cgv.php" class="btn">Voir</a>
+            </li>
+            <li>
+                <span>Conditions Générales d'Utilisation (CGU)</span>
+                <a href="/kindwolf/pages/cgu.php" class="btn">Voir</a>
+            </li>
+            <li>
+                <span>Checkout avec cases CGV + Newsletter <span class="status new">NOUVEAU</span></span>
+                <a href="/kindwolf/pages/checkout.php" class="btn">Tester</a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="test-card">
+        <h2>✅ Fonctionnalités implémentées</h2>
+        <ul style="line-height: 1.8;">
+            <li><strong>✓</strong> Interface admin pour envoyer des newsletters en masse</li>
+            <li><strong>✓</strong> Support HTML + texte brut</li>
+            <li><strong>✓</strong> Lien de désinscription automatique [UNSUBSCRIBE_LINK]</li>
+            <li><strong>✓</strong> Compteur d'abonnés actifs</li>
+            <li><strong>✓</strong> Case à cocher OBLIGATOIRE pour accepter CGV/CGU au checkout</li>
+            <li><strong>✓</strong> Case à cocher OPTIONNELLE pour s'inscrire à la newsletter</li>
+            <li><strong>✓</strong> Inscription automatique à la newsletter lors du checkout si cochée</li>
+            <li><strong>✓</strong> Pages CGV et CGU complètes</li>
+            <li><strong>✓</strong> Page de désinscription newsletter</li>
+        </ul>
+    </div>
+    
+    <div class="test-card">
+        <h2>🧪 Scénario de test complet</h2>
+        <ol style="line-height: 1.8;">
+            <li>Ajoutez un produit au panier</li>
+            <li>Allez au checkout</li>
+            <li>Vérifiez les 2 cases à cocher :
+                <ul>
+                    <li>CGV/CGU (obligatoire avec *)</li>
+                    <li>Newsletter (optionnelle)</li>
+                </ul>
+            </li>
+            <li>Essayez de continuer SANS cocher CGV → Erreur</li>
+            <li>Cochez CGV + Newsletter → Passez commande</li>
+            <li>Vérifiez dans <a href="/kindwolf/admin/newsletter/list.php">Admin Newsletter</a> que vous êtes inscrit</li>
+            <li>Dans l'admin, cliquez sur "Envoyer une newsletter"</li>
+            <li>Testez l'envoi (configurez SMTP si nécessaire)</li>
+        </ol>
+    </div>
+    
+    <div style="text-align: center; margin-top: 2rem;">
+        <a href="/kindwolf/" class="btn" style="padding: 1rem 2rem; font-size: 1.1rem;">← Retour au site</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+# Dépendances Composer
+/vendor/
+composer.lock
+
+# Fichiers de configuration sensibles
+config/database.php
+qr-code/email_config.php
+
+# Fichiers uploadés sensibles
+uploads/tickets/*.pdf
+uploads/qrcodes/*.png
+uploads/profiles/*
+uploads/gallery/*
+uploads/blog/*
+
+# Conserver les dossiers mais pas les fichiers
+!uploads/tickets/.gitkeep
+!uploads/qrcodes/.gitkeep
+!uploads/profiles/.gitkeep
+!uploads/gallery/.gitkeep
+!uploads/blog/.gitkeep
+
+# Logs et cache
+*.log
+error_log
+php_errors.log
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+
+# Fichiers IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Fichiers temporaires
+*.tmp
+*.bak
+*.backup

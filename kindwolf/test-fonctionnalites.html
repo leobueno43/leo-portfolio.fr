@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test des Fonctionnalités - KIND WOLF</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2F5D50, #6B4F3F);
+            color: #2B2B2B;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #2F5D50;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .feature-card {
+            background: linear-gradient(135deg, #F2E8CF, #fff);
+            border: 3px solid #2F5D50;
+            border-radius: 10px;
+            padding: 2rem;
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(47, 93, 80, 0.2);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .feature-title {
+            color: #2F5D50;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .feature-status {
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+        .status-ok { color: #28a745; }
+        .status-error { color: #dc3545; }
+        .test-list {
+            list-style: none;
+            padding: 0;
+        }
+        .test-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #F2E8CF;
+        }
+        .test-list li:before {
+            content: "✓ ";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 1rem;
+            background: #8B2C2C;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #a03636;
+        }
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 1rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #f39c12;
+            padding: 1rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 1rem;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐺 KIND WOLF - Test des Fonctionnalités</h1>
+        
+        <div class="success-box">
+            <h3>✅ Toutes les fonctionnalités ont été implémentées avec succès !</h3>
+            <p>Utilisez cette page pour naviguer et tester chaque fonctionnalité.</p>
+        </div>
+
+        <div class="feature-grid">
+            <!-- Annulation de commande -->
+            <div class="feature-card">
+                <div class="feature-icon">❌</div>
+                <h3 class="feature-title">Annulation de Commande</h3>
+                <div class="feature-status status-ok">✅ Opérationnel</div>
+                <ul class="test-list">
+                    <li>Annulation client (pending)</li>
+                    <li>Annulation admin</li>
+                    <li>Restauration du stock</li>
+                    <li>Gestion codes promo</li>
+                </ul>
+                <a href="/kindwolf/user/commandes.php" class="btn">Tester (Client)</a>
+                <a href="/kindwolf/admin/orders/list.php" class="btn" style="margin-top: 0.5rem;">Tester (Admin)</a>
+            </div>
+
+            <!-- Système d'avis -->
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3 class="feature-title">Système d'Avis</h3>
+                <div class="feature-status status-ok">✅ Opérationnel</div>
+                <ul class="test-list">
+                    <li>Formulaire d'avis</li>
+                    <li>Notes 1-5 étoiles</li>
+                    <li>Badge achat vérifié</li>
+                    <li>Modération admin</li>
+                    <li>Affichage public</li>
+                </ul>
+                <a href="/kindwolf/pages/boutique.php" class="btn">Voir les produits</a>
+                <a href="/kindwolf/admin/reviews/list.php" class="btn" style="margin-top: 0.5rem;">Modérer (Admin)</a>
+            </div>
+
+            <!-- Codes promo -->
+            <div class="feature-card">
+                <div class="feature-icon">🎫</div>
+                <h3 class="feature-title">Codes Promo</h3>
+                <div class="feature-status status-ok">✅ Opérationnel</div>
+                <ul class="test-list">
+                    <li>Application au panier</li>
+                    <li>Validation automatique</li>
+                    <li>Limites d'usage</li>
+                    <li>Montant minimum</li>
+                    <li>Types: % et fixe</li>
+                </ul>
+                <a href="/kindwolf/pages/panier.php" class="btn">Tester au panier</a>
+                <a href="/kindwolf/admin/promo/list.php" class="btn" style="margin-top: 0.5rem;">Gérer (Admin)</a>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="feature-card">
+                <div class="feature-icon">📧</div>
+                <h3 class="feature-title">Newsletter</h3>
+                <div class="feature-status status-ok">✅ Opérationnel</div>
+                <ul class="test-list">
+                    <li>Inscription email</li>
+                    <li>Validation format</li>
+                    <li>Anti-doublon</li>
+                    <li>Token désinscription</li>
+                    <li>Gestion admin</li>
+                </ul>
+                <a href="/kindwolf/pages/about.php" class="btn">Tester inscription</a>
+                <a href="/kindwolf/admin/newsletter/list.php" class="btn" style="margin-top: 0.5rem;">Gérer (Admin)</a>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>📋 Codes promo de test disponibles</h3>
+            <ul>
+                <li><strong>BIENVENUE10</strong> - 10% de réduction (minimum 30€)</li>
+                <li><strong>NOEL25</strong> - 25€ de réduction (minimum 100€)</li>
+                <li><strong>PRINTEMPS15</strong> - 15% de réduction (minimum 50€)</li>
+                <li><strong>LIVRAISON</strong> - Livraison gratuite (5.90€)</li>
+            </ul>
+        </div>
+
+        <div class="warning-box">
+            <h3>⚠️ Prérequis pour les tests</h3>
+            <ul style="list-style: inside; padding-left: 1rem;">
+                <li>Serveur Apache et MySQL démarrés (XAMPP)</li>
+                <li>Base de données importée</li>
+                <li>Compte admin créé</li>
+                <li>Produits en stock disponibles</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>📚 Documentation disponible</h3>
+            <ul style="list-style: inside; padding-left: 1rem;">
+                <li><strong>FONCTIONNALITES.md</strong> - Documentation technique complète</li>
+                <li><strong>README_FONCTIONNALITES.md</strong> - Guide d'utilisation détaillé</li>
+                <li><strong>database/verification_tables.sql</strong> - Script de vérification SQL</li>
+            </ul>
+        </div>
+
+        <div class="success-box" style="margin-top: 3rem;">
+            <h3>🎯 Checklist de vérification rapide</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                <div>
+                    <h4>✅ Client</h4>
+                    <ul style="list-style: inside;">
+                        <li>Annuler une commande</li>
+                        <li>Laisser un avis</li>
+                        <li>Appliquer code promo</li>
+                        <li>S'inscrire newsletter</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>✅ Admin</h4>
+                    <ul style="list-style: inside;">
+                        <li>Annuler une commande</li>
+                        <li>Modérer les avis</li>
+                        <li>Créer code promo</li>
+                        <li>Voir inscrits newsletter</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #F2E8CF;">
+            <p style="color: #666; margin-bottom: 1rem;">
+                <strong>Date de mise en production :</strong> 9 janvier 2026<br>
+                <strong>Version :</strong> 1.0<br>
+                <strong>Statut :</strong> ✅ Production Ready
+            </p>
+            <a href="/kindwolf/" class="btn" style="max-width: 300px; margin: 0 auto;">
+                🏠 Retour à l'accueil
+            </a>
+        </div>
+    </div>
+
+    <script>
+        console.log('%c🐺 KIND WOLF - Fonctionnalités implémentées', 'font-size: 20px; font-weight: bold; color: #2F5D50;');
+        console.log('%c✅ Annulation de commande', 'color: #28a745;');
+        console.log('%c✅ Système d\'avis', 'color: #28a745;');
+        console.log('%c✅ Codes promo', 'color: #28a745;');
+        console.log('%c✅ Newsletter', 'color: #28a745;');
+        console.log('%cToutes les fonctionnalités sont opérationnelles !', 'font-weight: bold; color: #2F5D50;');
+    </script>
+</body>
+</html>

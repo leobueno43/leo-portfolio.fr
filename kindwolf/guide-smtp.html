@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Configuration SMTP - KIND WOLF</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2F5D50, #6B4F3F);
+            color: #333;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #2F5D50;
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        .step {
+            background: #f9fafb;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2F5D50;
+        }
+        .step h2 {
+            color: #2F5D50;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .step-number {
+            background: #2F5D50;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .code {
+            background: #1e293b;
+            color: #10b981;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        .config-table th,
+        .config-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .config-table th {
+            background: #2F5D50;
+            color: white;
+            font-weight: 600;
+        }
+        .config-table tr:hover {
+            background: #f3f4f6;
+        }
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #2F5D50;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 1rem;
+        }
+        .btn:hover {
+            background: #1e3a2e;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #6B4F3F;
+        }
+        .btn-secondary:hover {
+            background: #4a3629;
+        }
+        .warning {
+            background: #FEF3C7;
+            border: 2px solid #F59E0B;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        .warning strong {
+            color: #92400E;
+        }
+        .success {
+            background: #D1FAE5;
+            border: 2px solid #10B981;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+        .success strong {
+            color: #065F46;
+        }
+        .screenshot {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-style: italic;
+            color: #666;
+        }
+        ul {
+            margin-left: 2rem;
+            line-height: 1.8;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📧 Guide : Configuration SMTP pour Newsletter</h1>
+        <p class="subtitle">Suivez ce guide pas à pas pour configurer l'envoi d'emails</p>
+        
+        <!-- Étape 1 -->
+        <div class="step">
+            <h2><span class="step-number">1</span> Accéder aux paramètres SMTP</h2>
+            <p>Dans l'administration de KIND WOLF :</p>
+            <ol>
+                <li>Connectez-vous à l'admin : <strong>/admin/dashboard.php</strong></li>
+                <li>Dans le menu latéral, cliquez sur <strong>"⚙️ Paramètres" → "Site"</strong></li>
+                <li>Ou accédez directement à : <a href="/kindwolf/admin/settings/site.php" target="_blank">/admin/settings/site.php</a></li>
+            </ol>
+            <p style="margin-top: 1rem;">Vous verrez une nouvelle section : <strong>"📧 Configuration Email (SMTP) pour Newsletter"</strong></p>
+        </div>
+        
+        <!-- Étape 2 -->
+        <div class="step">
+            <h2><span class="step-number">2</span> Choisir votre fournisseur SMTP</h2>
+            <p>Voici les paramètres pour les services les plus courants :</p>
+            
+            <table class="config-table">
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>Serveur SMTP</th>
+                        <th>Port</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Gmail</strong></td>
+                        <td>smtp.gmail.com</td>
+                        <td>587</td>
+                        <td>⚠️ Nécessite mot de passe d'application</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Outlook/Office 365</strong></td>
+                        <td>smtp.office365.com</td>
+                        <td>587</td>
+                        <td>Utilisez votre mot de passe normal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Yahoo Mail</strong></td>
+                        <td>smtp.mail.yahoo.com</td>
+                        <td>587</td>
+                        <td>Activez "Moins sécurisé"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mailtrap (test)</strong></td>
+                        <td>smtp.mailtrap.io</td>
+                        <td>2525</td>
+                        <td>✅ Parfait pour tester sans envoyer de vrais emails</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Étape 3 Gmail -->
+        <div class="step">
+            <h2><span class="step-number">3</span> Configuration Gmail (Le plus courant)</h2>
+            
+            <div class="warning">
+                <strong>⚠️ Important :</strong> Gmail nécessite un "mot de passe d'application" spécial, pas votre mot de passe Gmail normal !
+            </div>
+            
+            <h3 style="margin-top: 1.5rem; margin-bottom: 1rem;">📝 Étapes pour Gmail :</h3>
+            <ol>
+                <li><strong>Activez la validation en 2 étapes</strong>
+                    <ul>
+                        <li>Allez sur <a href="https://myaccount.google.com/security" target="_blank">myaccount.google.com/security</a></li>
+                        <li>Section "Connexion à Google" → Activez "Validation en 2 étapes"</li>
+                    </ul>
+                </li>
+                <li><strong>Générez un mot de passe d'application</strong>
+                    <ul>
+                        <li>Allez sur <a href="https://myaccount.google.com/apppasswords" target="_blank">myaccount.google.com/apppasswords</a></li>
+                        <li>Nom de l'application : <code>KIND WOLF Newsletter</code></li>
+                        <li>Cliquez sur "Créer"</li>
+                        <li>Google vous donnera un code de <strong>16 caractères</strong> comme : <code>abcd efgh ijkl mnop</code></li>
+                    </ul>
+                </li>
+                <li><strong>Dans KIND WOLF, remplissez :</strong>
+                    <ul>
+                        <li>Serveur SMTP : <code>smtp.gmail.com</code></li>
+                        <li>Port SMTP : <code>587</code></li>
+                        <li>Nom d'utilisateur : <code>votre-email@gmail.com</code></li>
+                        <li>Mot de passe : <code>abcdefghijklmnop</code> (le code de 16 caractères, sans espaces)</li>
+                        <li>Email expéditeur : <code>votre-email@gmail.com</code> ou <code>noreply@kindwolf.com</code></li>
+                        <li>Nom expéditeur : <code>KIND WOLF</code></li>
+                    </ul>
+                </li>
+            </ol>
+            
+            <div class="screenshot">
+                💡 Exemple de configuration Gmail :
+                <div class="code">
+Serveur SMTP : smtp.gmail.com
+Port SMTP : 587
+Nom d'utilisateur : contact@kindwolf.gmail.com
+Mot de passe : abcdefghijklmnop
+Email expéditeur : contact@kindwolf.gmail.com
+Nom expéditeur : KIND WOLF
+                </div>
+            </div>
+        </div>
+        
+        <!-- Étape 4 Mailtrap -->
+        <div class="step">
+            <h2><span class="step-number">4</span> Alternative : Mailtrap (pour tester)</h2>
+            
+            <div class="success">
+                <strong>✅ Recommandé pour les tests !</strong> Mailtrap capture tous les emails sans les envoyer réellement. Parfait pour tester votre système de newsletter.
+            </div>
+            
+            <ol>
+                <li>Créez un compte gratuit sur <a href="https://mailtrap.io" target="_blank">mailtrap.io</a></li>
+                <li>Créez une "Inbox"</li>
+                <li>Copiez les identifiants SMTP affichés</li>
+                <li>Remplissez dans KIND WOLF :
+                    <ul>
+                        <li>Serveur : <code>smtp.mailtrap.io</code></li>
+                        <li>Port : <code>2525</code> ou <code>587</code></li>
+                        <li>Username : (fourni par Mailtrap)</li>
+                        <li>Password : (fourni par Mailtrap)</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+        
+        <!-- Étape 5 Test -->
+        <div class="step">
+            <h2><span class="step-number">5</span> Tester l'envoi</h2>
+            <ol>
+                <li>Sauvegardez les paramètres SMTP dans <strong>/admin/settings/site.php</strong></li>
+                <li>Vérifiez que le badge <strong>✅ SMTP configuré</strong> s'affiche</li>
+                <li>Allez dans <strong>Admin → Newsletter → Liste des abonnés</strong></li>
+                <li>Cliquez sur <strong>"📨 Envoyer une newsletter"</strong></li>
+                <li>Remplissez un email de test</li>
+                <li>Envoyez !</li>
+            </ol>
+            
+            <div class="screenshot">
+                💡 Si vous utilisez Mailtrap, les emails apparaîtront dans votre inbox Mailtrap (pas dans une vraie boîte mail).
+                Si vous utilisez Gmail, ils seront envoyés réellement !
+            </div>
+        </div>
+        
+        <!-- Dépannage -->
+        <div class="step">
+            <h2>🔧 Dépannage</h2>
+            <h3 style="margin-bottom: 1rem;">Problèmes courants :</h3>
+            
+            <p><strong>❌ "Authentication failed"</strong></p>
+            <ul>
+                <li>Pour Gmail : Vérifiez que vous utilisez un mot de passe d'application (16 caractères)</li>
+                <li>Vérifiez que la validation en 2 étapes est activée</li>
+                <li>Vérifiez qu'il n'y a pas d'espaces dans le mot de passe</li>
+            </ul>
+            
+            <p style="margin-top: 1rem;"><strong>❌ "Could not connect to SMTP host"</strong></p>
+            <ul>
+                <li>Vérifiez le serveur SMTP et le port</li>
+                <li>Essayez le port 465 si 587 ne fonctionne pas</li>
+                <li>Vérifiez votre pare-feu</li>
+            </ul>
+            
+            <p style="margin-top: 1rem;"><strong>❌ Les emails ne partent pas</strong></p>
+            <ul>
+                <li>Vérifiez qu'il y a des abonnés actifs dans la liste</li>
+                <li>Regardez les logs d'erreur PHP (dans XAMPP/logs)</li>
+                <li>Testez d'abord avec Mailtrap pour isoler le problème</li>
+            </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #e5e7eb;">
+            <a href="/kindwolf/admin/settings/site.php" class="btn">⚙️ Aller aux paramètres SMTP</a>
+            <a href="/kindwolf/admin/newsletter/send.php" class="btn btn-secondary">📧 Envoyer une newsletter</a>
+        </div>
+        
+        <div style="margin-top: 2rem; text-align: center; color: #666;">
+            <small>KIND WOLF - E-commerce artisanal 🐺</small>
+        </div>
+    </div>
+</body>
+</html>
